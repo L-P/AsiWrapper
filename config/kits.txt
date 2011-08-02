@@ -1,0 +1,7 @@
+starter=diamondpickaxe 1 diamondspade 1 diamondaxe 1 diamondsword 1 bow 1 arrow 64 torch 64
+diamondarmor=diamondhelmet 1 diamondchestplate 1 diamondleggins 1 diamondboots 1
+ironarmor=ironhelmet 1 ironchestplate 1 ironleggins 1 ironboots 1
+leatherarmor=leatherhelmet 1 leatherchestplate 1 leatherleggins 1 leatherboots 1
+goldarmor=goldhelmet 1 goldchestplate 1 goldleggins 1 goldboots 1
+chainmailarmor=chainmailhelmet 1 chainmailchestplate 1 chainmailleggins 1 chainmailboots 1
+

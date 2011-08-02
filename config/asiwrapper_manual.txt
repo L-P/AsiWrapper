@@ -1,0 +1,83 @@
+=== How to read this file :
+<foo> means that foo is mandatory, [bar] means that bar can be ommited.
+Ex : if the help file says "/somecmd <nick> [count]" you have to type something like "/somecmd WonderNick" or "/somecmd Venn 42".
+
+
+=== Commands :
+!get <item> [count]	: Gives what was asked. count can be up to 512.
+!get <kit>			: Gives the said kit.
+!geta <item>		: Gives one item at a time.
+!goto <nick>		: Teleports the player to another one.
+!motd				: Shows the motd.
+!list				: Shows the connected players.
+
+
+=== Op commands :
+/allowitem <item>		: Removes an item from the blacklist.
+/disallowitem <item>	: Adds an item to the blacklist.
+/reset <nick>			: Kicks the player and deletes its .dat file. The nick is case-sensitive on UNIXes.
+/backup					: Backups the world and the _server.jar. Will not work on Windows because the OS lacks basic tools.
+
+
+=== Items :
+Can be given from name or ID. Names are more like aliases, you can edit items.txt if you want.
+64 units of the item will be given by default.
+
+
+=== Kits :
+To add kits, edit kits.txt. One kit per line.
+kitname=<item> <count> [<item> <count>]+
+item can be an item name or it's ID.
+
+
+=== Items blacklist :
+Players have to be op to !get those items.
+One item ID per line in the file items_blacklist.txt
+
+
+=== Server :
+The server will keep running until a stop command is issued from stdin. Even ops won't be able to stop the server, only restart it.
+
+
+=== Config :
+The wrapper.properties files contains everything and is self-explanatory.
+When something is disabled, not even ops can use it.
+You have to restart the server after modifying the files.
+
+
+=== Greeting :
+If enable-greeting is set to true, when a player connects the server will tell him if there are other players connected.
+
+
+=== Error codes :
+0 Everything was fine.
+1 Could not launch the Wrapper thread, WTF ?
+2 Could not execute minecraft_server.jar.
+3 Could not create or load the configuration files.
+
+
+=== Examples :
+!get stone 				: Gives 64 units of stone.
+!geta boat				: Gives 1 boat.
+!get 322 512			: Gives 512 golden apples.
+/disallowitem bedrock	: Only ops will now be able to get bedrock (via !get or /give).
+
+
+=== Login :
+Requires PHP (or your own implementation).
+If minecraft.net is down, you still can check players' IPs to see if they are allowed to join.
+"Accounts" are to be created in logins.inc.php, then players can log in and their IP will be stored for two minutes.
+During these two minutes, they will be able to join the server with the same IP they used when accessing the login page.
+If you want to write your own implementation of this, there is only one thing to implement :
+The wrapper will ask for login-url?check=<IP>&user=<nick>
+Where <IP> is the IP of the player who is joining and <nick> his username. The URL has to yield 'true' for the IP to be validated,
+every other value will be rejected.
+You can even make pay-to-play servers with that.
+/!\ ips.inc.php must be writable by PHP for this to work.
+
+
+=== Developers :
+Main lauches a Wrapper (which is a Thread), then Thread::run looks for events and send them to EventHandler.
+Every command can be found in EventHandler.java.
+There is a Doxyfile file provided for you to use with doxygen.
+
